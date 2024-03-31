@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard-editor-container">
-
     <el-row :gutter="40" class="panel-group">
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel" @click="handleSetLineChartData('newVisitis')">
@@ -8,8 +7,15 @@
             <svg-icon icon-class="peoples" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">{{ $t('dashboard.section.user_total') }}</div>
-            <count-to :start-val="0" :end-val="userTotal" :duration="2600" class="card-panel-num"/>
+            <div class="card-panel-text">
+              {{ $t("dashboard.section.user_total") }}
+            </div>
+            <count-to
+              :start-val="0"
+              :end-val="userTotal"
+              :duration="2600"
+              class="card-panel-num"
+            />
           </div>
         </div>
       </el-col>
@@ -19,8 +25,15 @@
             <svg-icon icon-class="message" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">{{ $t('dashboard.section.goods_total') }}</div>
-            <count-to :start-val="0" :end-val="goodsTotal" :duration="3000" class="card-panel-num"/>
+            <div class="card-panel-text">
+              {{ $t("dashboard.section.goods_total") }}
+            </div>
+            <count-to
+              :start-val="0"
+              :end-val="goodsTotal"
+              :duration="3000"
+              class="card-panel-num"
+            />
           </div>
         </div>
       </el-col>
@@ -30,8 +43,15 @@
             <svg-icon icon-class="message" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">{{ $t('dashboard.section.product_total') }}</div>
-            <count-to :start-val="0" :end-val="productTotal" :duration="3200" class="card-panel-num"/>
+            <div class="card-panel-text">
+              {{ $t("dashboard.section.product_total") }}
+            </div>
+            <count-to
+              :start-val="0"
+              :end-val="productTotal"
+              :duration="3200"
+              class="card-panel-num"
+            />
           </div>
         </div>
       </el-col>
@@ -41,8 +61,15 @@
             <svg-icon icon-class="money" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">{{ $t('dashboard.section.order_total') }}</div>
-            <count-to :start-val="0" :end-val="orderTotal" :duration="3600" class="card-panel-num"/>
+            <div class="card-panel-text">
+              {{ $t("dashboard.section.order_total") }}
+            </div>
+            <count-to
+              :start-val="0"
+              :end-val="orderTotal"
+              :duration="3600"
+              class="card-panel-num"
+            />
           </div>
         </div>
       </el-col>
@@ -67,7 +94,7 @@ export default {
     }
   },
   created() {
-    info().then(response => {
+    info().then((response) => {
       this.userTotal = response.data.data.userTotal
       this.goodsTotal = response.data.data.goodsTotal
       this.productTotal = response.data.data.productTotal
@@ -96,7 +123,7 @@ export default {
 .panel-group {
   margin-top: 18px;
 
-  .card-panel-col{
+  .card-panel-col {
     margin-bottom: 32px;
   }
   .card-panel {
@@ -107,14 +134,14 @@ export default {
     overflow: hidden;
     color: #666;
     background: #fff;
-    box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-    border-color: rgba(0, 0, 0, .05);
+    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.05);
     &:hover {
       .card-panel-icon-wrapper {
         color: #fff;
       }
       .icon-people {
-         background: #40c9c6;
+        background: #40c9c6;
       }
       .icon-message {
         background: #36a3f7;
@@ -123,7 +150,7 @@ export default {
         background: #f4516c;
       }
       .icon-shoppingCard {
-        background: #34bfa3
+        background: #34bfa3;
       }
     }
     .icon-people {
@@ -136,7 +163,7 @@ export default {
       color: #f4516c;
     }
     .icon-shoppingCard {
-      color: #34bfa3
+      color: #34bfa3;
     }
     .card-panel-icon-wrapper {
       float: left;

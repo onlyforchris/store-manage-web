@@ -1,27 +1,55 @@
 <template>
   <div class="app-container">
-    <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-width="300px">
-      <el-form-item :label="$t('config_order.form.unpaid')" prop="litemall_order_unpaid">
-        <el-input v-model="dataForm.litemall_order_unpaid" class="input-width">
-          <template slot="append">{{ $t('config_order.text.minutes') }}</template>
+    <el-form
+      ref="dataForm"
+      :rules="rules"
+      :model="dataForm"
+      status-icon
+      label-width="300px"
+    >
+      <el-form-item
+        :label="$t('config_order.form.unpaid')"
+        prop="waterstore_order_unpaid"
+      >
+        <el-input
+          v-model="dataForm.waterstore_order_unpaid"
+          class="input-width"
+        >
+          <template slot="append">{{
+            $t("config_order.text.minutes")
+          }}</template>
         </el-input>
-        <span class="info">{{ $t('config_order.help.unpaid') }}</span>
+        <span class="info">{{ $t("config_order.help.unpaid") }}</span>
       </el-form-item>
-      <el-form-item :label="$t('config_order.form.unconfirm')" prop="litemall_order_unconfirm">
-        <el-input v-model="dataForm.litemall_order_unconfirm" class="input-width">
-          <template slot="append"> {{ $t('config_order.text.days') }}</template>
+      <el-form-item
+        :label="$t('config_order.form.unconfirm')"
+        prop="waterstore_order_unconfirm"
+      >
+        <el-input
+          v-model="dataForm.waterstore_order_unconfirm"
+          class="input-width"
+        >
+          <template slot="append"> {{ $t("config_order.text.days") }}</template>
         </el-input>
-        <span class="info">{{ $t('config_order.help.unconfirm') }}</span>
+        <span class="info">{{ $t("config_order.help.unconfirm") }}</span>
       </el-form-item>
-      <el-form-item :label="$t('config_order.form.comment')" prop="litemall_order_comment">
-        <el-input v-model="dataForm.litemall_order_comment" class="input-width">
-          <template slot="append">{{ $t('config_order.text.days') }}</template>
+      <el-form-item
+        :label="$t('config_order.form.comment')"
+        prop="waterstore_order_comment"
+      >
+        <el-input
+          v-model="dataForm.waterstore_order_comment"
+          class="input-width"
+        >
+          <template slot="append">{{ $t("config_order.text.days") }}</template>
         </el-input>
-        <span class="info">{{ $t('config_order.help.comment') }}</span>
+        <span class="info">{{ $t("config_order.help.comment") }}</span>
       </el-form-item>
       <el-form-item>
-        <el-button @click="cancel">{{ $t('app.button.cancel') }}</el-button>
-        <el-button type="primary" @click="update">{{ $t('app.button.confirm') }}</el-button>
+        <el-button @click="cancel">{{ $t("app.button.cancel") }}</el-button>
+        <el-button type="primary" @click="update">{{
+          $t("app.button.confirm")
+        }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -35,18 +63,18 @@ export default {
   data() {
     return {
       dataForm: {
-        litemall_order_unpaid: 0,
-        litemall_order_unconfirm: 0,
-        litemall_order_comment: 0
+        waterstore_order_unpaid: 0,
+        waterstore_order_unconfirm: 0,
+        waterstore_order_comment: 0
       },
       rules: {
-        litemall_order_unpaid: [
+        waterstore_order_unpaid: [
           { required: true, message: '不能为空', trigger: 'blur' }
         ],
-        litemall_order_unconfirm: [
+        waterstore_order_unconfirm: [
           { required: true, message: '不能为空', trigger: 'blur' }
         ],
-        litemall_order_comment: [
+        waterstore_order_comment: [
           { required: true, message: '不能为空', trigger: 'blur' }
         ]
       }
@@ -56,8 +84,8 @@ export default {
     this.init()
   },
   methods: {
-    init: function () {
-      listOrder().then(response => {
+    init: function() {
+      listOrder().then((response) => {
         this.dataForm = response.data.data
       })
     },
@@ -74,13 +102,13 @@ export default {
     },
     doUpdate() {
       updateOrder(this.dataForm)
-        .then(response => {
+        .then((response) => {
           this.$notify.success({
             title: '成功',
             message: '订单参数配置成功'
           })
         })
-        .catch(response => {
+        .catch((response) => {
           this.$notify.error({
             title: '失败',
             message: response.data.errmsg

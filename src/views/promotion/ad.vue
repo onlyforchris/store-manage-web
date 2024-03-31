@@ -1,53 +1,156 @@
 <template>
   <div class="app-container">
-
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.name" clearable class="filter-item" style="width: 200px;" :placeholder="$t('promotion_ad.placeholder.filter_name')" />
-      <el-input v-model="listQuery.content" clearable class="filter-item" style="width: 200px;" :placeholder="$t('promotion_ad.placeholder.filter_content')" />
-      <el-button v-permission="['GET /admin/ad/list']" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">{{ $t('app.button.search') }}</el-button>
-      <el-button v-permission="['POST /admin/ad/create']" class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t('app.button.create') }}</el-button>
-      <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">{{ $t('app.button.download') }}</el-button>
+      <el-input
+        v-model="listQuery.name"
+        clearable
+        class="filter-item"
+        style="width: 200px"
+        :placeholder="$t('promotion_ad.placeholder.filter_name')"
+      />
+      <el-input
+        v-model="listQuery.content"
+        clearable
+        class="filter-item"
+        style="width: 200px"
+        :placeholder="$t('promotion_ad.placeholder.filter_content')"
+      />
+      <el-button
+        v-permission="['GET /admin/ad/list']"
+        class="filter-item"
+        type="primary"
+        icon="el-icon-search"
+        @click="handleFilter"
+      >{{ $t("app.button.search") }}</el-button>
+      <el-button
+        v-permission="['POST /admin/ad/create']"
+        class="filter-item"
+        type="primary"
+        icon="el-icon-edit"
+        @click="handleCreate"
+      >{{ $t("app.button.create") }}</el-button>
+      <el-button
+        :loading="downloadLoading"
+        class="filter-item"
+        type="primary"
+        icon="el-icon-download"
+        @click="handleDownload"
+      >{{ $t("app.button.download") }}</el-button>
     </div>
 
     <!-- 查询结果 -->
-    <el-table v-loading="listLoading" :data="list" :element-loading-text="$t('app.message.list_loading')" border fit highlight-current-row>
+    <el-table
+      v-loading="listLoading"
+      :data="list"
+      :element-loading-text="$t('app.message.list_loading')"
+      border
+      fit
+      highlight-current-row
+    >
+      <el-table-column
+        align="center"
+        :label="$t('promotion_ad.table.id')"
+        prop="id"
+        sortable
+      />
 
-      <el-table-column align="center" :label="$t('promotion_ad.table.id')" prop="id" sortable />
+      <el-table-column
+        align="center"
+        :label="$t('promotion_ad.table.name')"
+        prop="name"
+      />
 
-      <el-table-column align="center" :label="$t('promotion_ad.table.name')" prop="name" />
+      <el-table-column
+        align="center"
+        :label="$t('promotion_ad.table.content')"
+        prop="content"
+      />
 
-      <el-table-column align="center" :label="$t('promotion_ad.table.content')" prop="content" />
-
-      <el-table-column align="center" :label="$t('promotion_ad.table.url')" prop="url">
+      <el-table-column
+        align="center"
+        :label="$t('promotion_ad.table.url')"
+        prop="url"
+      >
         <template slot-scope="scope">
-          <el-image :src="thumbnail(scope.row.url)" :preview-src-list="toPreview(scope.row, scope.row.url)" style="width: 80px; height: 40px" />
+          <el-image
+            :src="thumbnail(scope.row.url)"
+            :preview-src-list="toPreview(scope.row, scope.row.url)"
+            style="width: 80px; height: 40px"
+          />
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('promotion_ad.table.position')" prop="position" />
+      <el-table-column
+        align="center"
+        :label="$t('promotion_ad.table.position')"
+        prop="position"
+      />
 
-      <el-table-column align="center" :label="$t('promotion_ad.table.link')" prop="link" />
+      <el-table-column
+        align="center"
+        :label="$t('promotion_ad.table.link')"
+        prop="link"
+      />
 
-      <el-table-column align="center" :label="$t('promotion_ad.table.enabled')" prop="enabled">
+      <el-table-column
+        align="center"
+        :label="$t('promotion_ad.table.enabled')"
+        prop="enabled"
+      >
         <template slot-scope="scope">
-          <el-tag :type="scope.row.enabled ? 'success' : 'error' ">{{ $t(scope.row.enabled ? 'promotion_ad.value.enabled_true' : 'promotion_ad.value.enabled_false') }}</el-tag>
+          <el-tag :type="scope.row.enabled ? 'success' : 'error'">{{
+            $t(
+              scope.row.enabled
+                ? "promotion_ad.value.enabled_true"
+                : "promotion_ad.value.enabled_false"
+            )
+          }}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('promotion_ad.table.actions')" width="200" class-name="small-padding fixed-width">
+      <el-table-column
+        align="center"
+        :label="$t('promotion_ad.table.actions')"
+        width="200"
+        class-name="small-padding fixed-width"
+      >
         <template slot-scope="scope">
-          <el-button v-permission="['POST /admin/ad/update']" type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('app.button.edit') }}</el-button>
-          <el-button v-permission="['POST /admin/ad/delete']" type="danger" size="mini" @click="handleDelete(scope.row)">{{ $t('app.button.delete') }}</el-button>
+          <el-button
+            v-permission="['POST /admin/ad/update']"
+            type="primary"
+            size="mini"
+            @click="handleUpdate(scope.row)"
+          >{{ $t("app.button.edit") }}</el-button>
+          <el-button
+            v-permission="['POST /admin/ad/delete']"
+            type="danger"
+            size="mini"
+            @click="handleDelete(scope.row)"
+          >{{ $t("app.button.delete") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination
+      v-show="total > 0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.limit"
+      @pagination="getList"
+    />
 
     <!-- 添加或修改对话框 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
+      <el-form
+        ref="dataForm"
+        :rules="rules"
+        :model="dataForm"
+        status-icon
+        label-position="left"
+        label-width="100px"
+        style="width: 400px; margin-left: 50px"
+      >
         <el-form-item :label="$t('promotion_ad.form.name')" prop="name">
           <el-input v-model="dataForm.name" />
         </el-form-item>
@@ -66,31 +169,55 @@
           >
             <img v-if="dataForm.url" :src="dataForm.url" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon" />
-            <div slot="tip" class="el-upload__tip">{{ $t('promotion_ad.help.url') }}</div>
+            <div slot="tip" class="el-upload__tip">
+              {{ $t("promotion_ad.help.url") }}
+            </div>
           </el-upload>
         </el-form-item>
         <el-form-item :label="$t('promotion_ad.form.position')" prop="position">
-          <el-select v-model="dataForm.position" :placeholder="$t('promotion_ad.placeholder.position')">
-            <el-option :value="1" :label="$t('promotion_ad.value.position_1')" />
+          <el-select
+            v-model="dataForm.position"
+            :placeholder="$t('promotion_ad.placeholder.position')"
+          >
+            <el-option
+              :value="1"
+              :label="$t('promotion_ad.value.position_1')"
+            />
           </el-select>
         </el-form-item>
         <el-form-item :label="$t('promotion_ad.form.link')" prop="link">
           <el-input v-model="dataForm.link" />
         </el-form-item>
         <el-form-item :label="$t('promotion_ad.form.enabled')" prop="enabled">
-          <el-select v-model="dataForm.enabled" :placeholder="$t('promotion_ad.placeholder.enabled')">
-            <el-option :value="true" :label="$t('promotion_ad.value.enabled_true')" />
-            <el-option :value="false" :label="$t('promotion_ad.value.enabled_false')" />
+          <el-select
+            v-model="dataForm.enabled"
+            :placeholder="$t('promotion_ad.placeholder.enabled')"
+          >
+            <el-option
+              :value="true"
+              :label="$t('promotion_ad.value.enabled_true')"
+            />
+            <el-option
+              :value="false"
+              :label="$t('promotion_ad.value.enabled_false')"
+            />
           </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">{{ $t('app.button.cancel') }}</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">{{ $t('app.button.confirm') }}</el-button>
-        <el-button v-else type="primary" @click="updateData">{{ $t('app.button.confirm') }}</el-button>
+        <el-button @click="dialogFormVisible = false">{{
+          $t("app.button.cancel")
+        }}</el-button>
+        <el-button
+          v-if="dialogStatus == 'create'"
+          type="primary"
+          @click="createData"
+        >{{ $t("app.button.confirm") }}</el-button>
+        <el-button v-else type="primary" @click="updateData">{{
+          $t("app.button.confirm")
+        }}</el-button>
       </div>
     </el-dialog>
-
   </div>
 </template>
 
@@ -176,7 +303,7 @@ export default {
   computed: {
     headers() {
       return {
-        'X-Litemall-Admin-Token': getToken()
+        'X-Store-Admin-Token': getToken()
       }
     }
   },
@@ -187,7 +314,7 @@ export default {
     getList() {
       this.listLoading = true
       listAd(this.listQuery)
-        .then(response => {
+        .then((response) => {
           this.list = response.data.data.list
           this.total = response.data.data.total
           this.listLoading = false
@@ -226,16 +353,18 @@ export default {
     },
     checkFileSize: function(file) {
       if (file.size > 1048576) {
-        this.$message.error(`${file.name}文件大于1024KB，请选择小于1024KB大小的图片`)
+        this.$message.error(
+          `${file.name}文件大于1024KB，请选择小于1024KB大小的图片`
+        )
         return false
       }
       return true
     },
     createData() {
-      this.$refs['dataForm'].validate(valid => {
+      this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           createAd(this.dataForm)
-            .then(response => {
+            .then((response) => {
               this.list.unshift(response.data.data)
               this.dialogFormVisible = false
               this.$notify.success({
@@ -243,7 +372,7 @@ export default {
                 message: '创建成功'
               })
             })
-            .catch(response => {
+            .catch((response) => {
               this.$notify.error({
                 title: '失败',
                 message: response.data.errmsg
@@ -261,7 +390,7 @@ export default {
       })
     },
     updateData() {
-      this.$refs['dataForm'].validate(valid => {
+      this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           updateAd(this.dataForm)
             .then(() => {
@@ -278,7 +407,7 @@ export default {
                 message: '更新广告成功'
               })
             })
-            .catch(response => {
+            .catch((response) => {
               this.$notify.error({
                 title: '失败',
                 message: response.data.errmsg
@@ -289,14 +418,14 @@ export default {
     },
     handleDelete(row) {
       deleteAd(row)
-        .then(response => {
+        .then((response) => {
           this.$notify.success({
             title: '成功',
             message: '删除成功'
           })
           this.getList()
         })
-        .catch(response => {
+        .catch((response) => {
           this.$notify.error({
             title: '失败',
             message: response.data.errmsg
@@ -305,7 +434,7 @@ export default {
     },
     handleDownload() {
       this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
+      import('@/vendor/Export2Excel').then((excel) => {
         const tHeader = [
           '广告ID',
           '广告标题',

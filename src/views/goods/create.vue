@@ -1,8 +1,7 @@
 <template>
   <div class="app-container">
-
     <el-card class="box-card">
-      <h3>{{ $t('goods_edit.section.goods') }}</h3>
+      <h3>{{ $t("goods_edit.section.goods") }}</h3>
       <el-form ref="goods" :rules="rules" :model="goods" label-width="150px">
         <el-form-item :label="$t('goods_edit.form.goods_sn')" prop="goodsSn">
           <el-input v-model="goods.goodsSn" />
@@ -10,27 +9,42 @@
         <el-form-item :label="$t('goods_edit.form.name')" prop="name">
           <el-input v-model="goods.name" />
         </el-form-item>
-        <el-form-item :label="$t('goods_edit.form.counter_price')" prop="counterPrice">
+        <el-form-item
+          :label="$t('goods_edit.form.counter_price')"
+          prop="counterPrice"
+        >
           <el-input v-model="goods.counterPrice" placeholder="0.00">
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
         <el-form-item :label="$t('goods_edit.form.is_new')" prop="isNew">
           <el-radio-group v-model="goods.isNew">
-            <el-radio :label="true">{{ $t('goods_edit.value.is_new_true') }}</el-radio>
-            <el-radio :label="false">{{ $t('goods_edit.value.is_new_false') }}</el-radio>
+            <el-radio :label="true">{{
+              $t("goods_edit.value.is_new_true")
+            }}</el-radio>
+            <el-radio :label="false">{{
+              $t("goods_edit.value.is_new_false")
+            }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item :label="$t('goods_edit.form.is_hot')" prop="isHot">
           <el-radio-group v-model="goods.isHot">
-            <el-radio :label="false">{{ $t('goods_edit.value.is_hot_false') }}</el-radio>
-            <el-radio :label="true">{{ $t('goods_edit.value.is_hot_true') }}</el-radio>
+            <el-radio :label="false">{{
+              $t("goods_edit.value.is_hot_false")
+            }}</el-radio>
+            <el-radio :label="true">{{
+              $t("goods_edit.value.is_hot_true")
+            }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item :label="$t('goods_edit.form.is_on_sale')" prop="isOnSale">
           <el-radio-group v-model="goods.isOnSale">
-            <el-radio :label="true">{{ $t('goods_edit.value.is_on_sale_true') }}</el-radio>
-            <el-radio :label="false">{{ $t('goods_edit.value.is_on_sale_false') }}</el-radio>
+            <el-radio :label="true">{{
+              $t("goods_edit.value.is_on_sale_true")
+            }}</el-radio>
+            <el-radio :label="false">{{
+              $t("goods_edit.value.is_on_sale_false")
+            }}</el-radio>
           </el-radio-group>
         </el-form-item>
 
@@ -65,11 +79,20 @@
         </el-form-item>
 
         <el-form-item :label="$t('goods_edit.form.unit')">
-          <el-input v-model="goods.unit" :placeholder="$t('goods_edit.placeholder.unit')" />
+          <el-input
+            v-model="goods.unit"
+            :placeholder="$t('goods_edit.placeholder.unit')"
+          />
         </el-form-item>
 
         <el-form-item :label="$t('goods_edit.form.keywords')">
-          <el-tag v-for="tag in keywords" :key="tag" closable type="primary" @close="handleClose(tag)">
+          <el-tag
+            v-for="tag in keywords"
+            :key="tag"
+            closable
+            type="primary"
+            @close="handleClose(tag)"
+          >
             {{ tag }}
           </el-tag>
           <el-input
@@ -77,20 +100,34 @@
             ref="newKeywordInput"
             v-model="newKeyword"
             class="input-new-keyword"
-
             @keyup.enter.native="handleInputConfirm"
             @blur="handleInputConfirm"
           />
-          <el-button v-else class="button-new-keyword" type="primary" @click="showInput">{{ $t('app.button.add') }}</el-button>
+          <el-button
+            v-else
+            class="button-new-keyword"
+            type="primary"
+            @click="showInput"
+          >{{ $t("app.button.add") }}</el-button>
         </el-form-item>
 
         <el-form-item :label="$t('goods_edit.form.category_id')">
-          <el-cascader :options="categoryList" expand-trigger="hover" clearable @change="handleCategoryChange" />
+          <el-cascader
+            :options="categoryList"
+            expand-trigger="hover"
+            clearable
+            @change="handleCategoryChange"
+          />
         </el-form-item>
 
         <el-form-item :label="$t('goods_edit.form.brand_id')">
           <el-select v-model="goods.brandId" clearable>
-            <el-option v-for="item in brandList" :key="item.value" :label="item.label" :value="item.value" />
+            <el-option
+              v-for="item in brandList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
           </el-select>
         </el-form-item>
 
@@ -105,29 +142,46 @@
     </el-card>
 
     <el-card class="box-card">
-      <h3>{{ $t('goods_edit.section.specifications') }}</h3>
-      <el-row :gutter="20" type="flex" align="middle" style="padding:20px 0;">
+      <h3>{{ $t("goods_edit.section.specifications") }}</h3>
+      <el-row :gutter="20" type="flex" align="middle" style="padding: 20px 0">
         <el-col :span="10">
           <el-radio-group v-model="multipleSpec" @change="specChanged">
-            <el-radio-button :label="false">{{ $t('goods_edit.value.multiple_spec_false') }}</el-radio-button>
-            <el-radio-button :label="true">{{ $t('goods_edit.value.multiple_spec_true') }}</el-radio-button>
+            <el-radio-button :label="false">{{
+              $t("goods_edit.value.multiple_spec_false")
+            }}</el-radio-button>
+            <el-radio-button :label="true">{{
+              $t("goods_edit.value.multiple_spec_true")
+            }}</el-radio-button>
           </el-radio-group>
         </el-col>
         <el-col v-if="multipleSpec" :span="10">
-          <el-button :plain="true" type="primary" @click="handleSpecificationShow">{{ $t('app.button.create') }}</el-button>
+          <el-button
+            :plain="true"
+            type="primary"
+            @click="handleSpecificationShow"
+          >{{ $t("app.button.create") }}</el-button>
         </el-col>
       </el-row>
 
       <el-table :data="specifications">
-        <el-table-column property="specification" :label="$t('goods_edit.table.specification_name')" />
-        <el-table-column property="value" :label="$t('goods_edit.table.specification_value')">
+        <el-table-column
+          property="specification"
+          :label="$t('goods_edit.table.specification_name')"
+        />
+        <el-table-column
+          property="value"
+          :label="$t('goods_edit.table.specification_value')"
+        >
           <template slot-scope="scope">
             <el-tag type="primary">
               {{ scope.row.value }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column property="picUrl" :label="$t('goods_edit.table.specification_pic_url')">
+        <el-table-column
+          property="picUrl"
+          :label="$t('goods_edit.table.specification_pic_url')"
+        >
           <template slot-scope="scope">
             <img v-if="scope.row.picUrl" :src="scope.row.picUrl" width="40">
           </template>
@@ -140,12 +194,19 @@
           class-name="small-padding fixed-width"
         >
           <template slot-scope="scope">
-            <el-button type="danger" size="mini" @click="handleSpecificationDelete(scope.row)">{{ $t('app.button.delete') }}</el-button>
+            <el-button
+              type="danger"
+              size="mini"
+              @click="handleSpecificationDelete(scope.row)"
+            >{{ $t("app.button.delete") }}</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <el-dialog :visible.sync="specVisiable" :title="$t('goods_edit.dialog.create_specification')">
+      <el-dialog
+        :visible.sync="specVisiable"
+        :title="$t('goods_edit.dialog.create_specification')"
+      >
         <el-form
           ref="specForm"
           :rules="rules"
@@ -153,15 +214,24 @@
           status-icon
           label-position="left"
           label-width="100px"
-          style="width: 400px; margin-left:50px;"
+          style="width: 400px; margin-left: 50px"
         >
-          <el-form-item :label="$t('goods_edit.form.specification_name')" prop="specification">
+          <el-form-item
+            :label="$t('goods_edit.form.specification_name')"
+            prop="specification"
+          >
             <el-input v-model="specForm.specification" />
           </el-form-item>
-          <el-form-item :label="$t('goods_edit.form.specification_value')" prop="value">
+          <el-form-item
+            :label="$t('goods_edit.form.specification_value')"
+            prop="value"
+          >
             <el-input v-model="specForm.value" />
           </el-form-item>
-          <el-form-item :label="$t('goods_edit.form.specification_pic_url')" prop="picUrl">
+          <el-form-item
+            :label="$t('goods_edit.form.specification_pic_url')"
+            prop="picUrl"
+          >
             <el-upload
               :action="uploadPath"
               :show-file-list="false"
@@ -170,60 +240,104 @@
               class="avatar-uploader"
               accept=".jpg,.jpeg,.png,.gif"
             >
-              <img v-if="specForm.picUrl" :src="specForm.picUrl" class="avatar">
+              <img
+                v-if="specForm.picUrl"
+                :src="specForm.picUrl"
+                class="avatar"
+              >
               <i v-else class="el-icon-plus avatar-uploader-icon" />
             </el-upload>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="specVisiable = false">{{ $t('app.button.cancel') }}</el-button>
-          <el-button type="primary" @click="handleSpecificationAdd">{{ $t('app.button.confirm') }}</el-button>
+          <el-button @click="specVisiable = false">{{
+            $t("app.button.cancel")
+          }}</el-button>
+          <el-button type="primary" @click="handleSpecificationAdd">{{
+            $t("app.button.confirm")
+          }}</el-button>
         </div>
       </el-dialog>
     </el-card>
 
     <el-card class="box-card">
-      <h3>{{ $t('goods_edit.section.products') }}</h3>
+      <h3>{{ $t("goods_edit.section.products") }}</h3>
       <el-table :data="products">
-        <el-table-column property="value" :label="$t('goods_edit.table.product_specifications')">
+        <el-table-column
+          property="value"
+          :label="$t('goods_edit.table.product_specifications')"
+        >
           <template slot-scope="scope">
             <el-tag v-for="tag in scope.row.specifications" :key="tag">
               {{ tag }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column property="price" width="100" :label="$t('goods_edit.table.product_price')" />
-        <el-table-column property="number" width="100" :label="$t('goods_edit.table.product_number')" />
-        <el-table-column property="url" width="100" :label="$t('goods_edit.table.product_url')">
+        <el-table-column
+          property="price"
+          width="100"
+          :label="$t('goods_edit.table.product_price')"
+        />
+        <el-table-column
+          property="number"
+          width="100"
+          :label="$t('goods_edit.table.product_number')"
+        />
+        <el-table-column
+          property="url"
+          width="100"
+          :label="$t('goods_edit.table.product_url')"
+        >
           <template slot-scope="scope">
             <img v-if="scope.row.url" :src="scope.row.url" width="40">
           </template>
         </el-table-column>
-        <el-table-column align="center" :label="$t('goods_edit.table.product_actions')" width="100" class-name="small-padding fixed-width">
+        <el-table-column
+          align="center"
+          :label="$t('goods_edit.table.product_actions')"
+          width="100"
+          class-name="small-padding fixed-width"
+        >
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="handleProductShow(scope.row)">{{ $t('app.button.settings') }}</el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="handleProductShow(scope.row)"
+            >{{ $t("app.button.settings") }}</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <el-dialog :visible.sync="productVisiable" :title="$t('goods_edit.dialog.create_product')">
+      <el-dialog
+        :visible.sync="productVisiable"
+        :title="$t('goods_edit.dialog.create_product')"
+      >
         <el-form
           ref="productForm"
           :model="productForm"
           status-icon
           label-position="left"
           label-width="100px"
-          style="width: 400px; margin-left:50px;"
+          style="width: 400px; margin-left: 50px"
         >
-          <el-form-item :label="$t('goods_edit.form.product_specifications')" prop="specifications">
+          <el-form-item
+            :label="$t('goods_edit.form.product_specifications')"
+            prop="specifications"
+          >
             <el-tag v-for="tag in productForm.specifications" :key="tag">
               {{ tag }}
             </el-tag>
           </el-form-item>
-          <el-form-item :label="$t('goods_edit.form.product_price')" prop="price">
+          <el-form-item
+            :label="$t('goods_edit.form.product_price')"
+            prop="price"
+          >
             <el-input v-model="productForm.price" />
           </el-form-item>
-          <el-form-item :label="$t('goods_edit.form.product_number')" prop="number">
+          <el-form-item
+            :label="$t('goods_edit.form.product_number')"
+            prop="number"
+          >
             <el-input v-model="productForm.number" />
           </el-form-item>
           <el-form-item :label="$t('goods_edit.form.product_url')" prop="url">
@@ -235,105 +349,144 @@
               class="avatar-uploader"
               accept=".jpg,.jpeg,.png,.gif"
             >
-              <img v-if="productForm.url" :src="productForm.url" class="avatar">
+              <img
+                v-if="productForm.url"
+                :src="productForm.url"
+                class="avatar"
+              >
               <i v-else class="el-icon-plus avatar-uploader-icon" />
             </el-upload>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="productVisiable = false">{{ $t('app.button.cancel') }}</el-button>
-          <el-button type="primary" @click="handleProductEdit">{{ $t('app.button.confirm') }}</el-button>
+          <el-button @click="productVisiable = false">{{
+            $t("app.button.cancel")
+          }}</el-button>
+          <el-button type="primary" @click="handleProductEdit">{{
+            $t("app.button.confirm")
+          }}</el-button>
         </div>
       </el-dialog>
     </el-card>
 
     <el-card class="box-card">
-      <h3>{{ $t('goods_edit.section.attributes') }}</h3>
-      <el-button type="primary" @click="handleAttributeShow">{{ $t('app.button.create') }}</el-button>
+      <h3>{{ $t("goods_edit.section.attributes") }}</h3>
+      <el-button type="primary" @click="handleAttributeShow">{{
+        $t("app.button.create")
+      }}</el-button>
       <el-table :data="attributes">
-        <el-table-column property="attribute" :label="$t('goods_edit.table.attribute_name')" />
-        <el-table-column property="value" :label="$t('goods_edit.table.attribute_value')" />
-        <el-table-column align="center" :label="$t('goods_edit.table.attribute_actions')" width="100" class-name="small-padding fixed-width">
+        <el-table-column
+          property="attribute"
+          :label="$t('goods_edit.table.attribute_name')"
+        />
+        <el-table-column
+          property="value"
+          :label="$t('goods_edit.table.attribute_value')"
+        />
+        <el-table-column
+          align="center"
+          :label="$t('goods_edit.table.attribute_actions')"
+          width="100"
+          class-name="small-padding fixed-width"
+        >
           <template slot-scope="scope">
-            <el-button type="danger" size="mini" @click="handleAttributeDelete(scope.row)">{{ $t('app.button.delete') }}</el-button>
+            <el-button
+              type="danger"
+              size="mini"
+              @click="handleAttributeDelete(scope.row)"
+            >{{ $t("app.button.delete") }}</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <el-dialog :visible.sync="attributeVisiable" :title="$t('goods_edit.dialog.create_attribute')">
+      <el-dialog
+        :visible.sync="attributeVisiable"
+        :title="$t('goods_edit.dialog.create_attribute')"
+      >
         <el-form
           ref="attributeForm"
           :model="attributeForm"
           status-icon
           label-position="left"
           label-width="100px"
-          style="width: 400px; margin-left:50px;"
+          style="width: 400px; margin-left: 50px"
         >
-          <el-form-item :label="$t('goods_edit.form.attribute_name')" prop="attribute">
+          <el-form-item
+            :label="$t('goods_edit.form.attribute_name')"
+            prop="attribute"
+          >
             <el-input v-model="attributeForm.attribute" />
           </el-form-item>
-          <el-form-item :label="$t('goods_edit.form.attribute_value')" prop="value">
+          <el-form-item
+            :label="$t('goods_edit.form.attribute_value')"
+            prop="value"
+          >
             <el-input v-model="attributeForm.value" />
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="attributeVisiable = false">{{ $t('app.button.cancel') }}</el-button>
-          <el-button type="primary" @click="handleAttributeAdd">{{ $t('app.button.confirm') }}</el-button>
+          <el-button @click="attributeVisiable = false">{{
+            $t("app.button.cancel")
+          }}</el-button>
+          <el-button type="primary" @click="handleAttributeAdd">{{
+            $t("app.button.confirm")
+          }}</el-button>
         </div>
       </el-dialog>
     </el-card>
 
     <div class="op-container">
-      <el-button @click="handleCancel">{{ $t('app.button.cancel') }}</el-button>
-      <el-button type="primary" @click="handlePublish">{{ $t('goods_edit.button.publish') }}</el-button>
+      <el-button @click="handleCancel">{{ $t("app.button.cancel") }}</el-button>
+      <el-button type="primary" @click="handlePublish">{{
+        $t("goods_edit.button.publish")
+      }}</el-button>
     </div>
-
   </div>
 </template>
 
 <style>
-  .el-card {
-    margin-bottom: 10px;
-  }
+.el-card {
+  margin-bottom: 10px;
+}
 
-  .el-tag + .el-tag {
-    margin-left: 10px;
-  }
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
 
-  .input-new-keyword {
-    width: 90px;
-    margin-left: 10px;
-    vertical-align: bottom;
-  }
+.input-new-keyword {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
 
-  .avatar-uploader .el-upload {
-    width: 145px;
-    height: 145px;
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
+.avatar-uploader .el-upload {
+  width: 145px;
+  height: 145px;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
 
-  .avatar-uploader .el-upload:hover {
-    border-color: #20a0ff;
-  }
+.avatar-uploader .el-upload:hover {
+  border-color: #20a0ff;
+}
 
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 120px;
-    height: 120px;
-    line-height: 120px;
-    text-align: center;
-  }
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+}
 
-  .avatar {
-    width: 145px;
-    height: 145px;
-    display: block;
-  }
+.avatar {
+  width: 145px;
+  height: 145px;
+  display: block;
+}
 </style>
 
 <script>
@@ -355,35 +508,60 @@ export default {
       keywords: [],
       categoryList: [],
       brandList: [],
-      goods: { picUrl: '', gallery: [], isHot: false, isNew: true, isOnSale: true },
+      goods: {
+        picUrl: '',
+        gallery: [],
+        isHot: false,
+        isNew: true,
+        isOnSale: true
+      },
       specVisiable: false,
       specForm: { specification: '', value: '', picUrl: '' },
       multipleSpec: false,
       specifications: [{ specification: '规格', value: '标准', picUrl: '' }],
       productVisiable: false,
-      productForm: { id: 0, specifications: [], price: 0.00, number: 0, url: '' },
-      products: [{ id: 0, specifications: ['标准'], price: 0.00, number: 0, url: '' }],
+      productForm: {
+        id: 0,
+        specifications: [],
+        price: 0.0,
+        number: 0,
+        url: ''
+      },
+      products: [
+        { id: 0, specifications: ['标准'], price: 0.0, number: 0, url: '' }
+      ],
       attributeVisiable: false,
       attributeForm: { attribute: '', value: '' },
       attributes: [],
       rules: {
-        goodsSn: [{ required: true, message: '商品编号不能为空', trigger: 'blur' }],
-        name: [{ required: true, message: '商品名称不能为空', trigger: 'blur' }]
+        goodsSn: [
+          { required: true, message: '商品编号不能为空', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, message: '商品名称不能为空', trigger: 'blur' }
+        ]
       },
       editorInit: {
         language: 'zh_CN',
         height: 500,
         convert_urls: false,
-        plugins: ['advlist anchor autolink autosave code codesample colorpicker colorpicker contextmenu directionality emoticons fullscreen hr image imagetools importcss insertdatetime link lists media nonbreaking noneditable pagebreak paste preview print save searchreplace spellchecker tabfocus table template textcolor textpattern visualblocks visualchars wordcount'],
-        toolbar: ['searchreplace bold italic underline strikethrough alignleft aligncenter alignright outdent indent  blockquote undo redo removeformat subscript superscript code codesample', 'hr bullist numlist link image charmap preview anchor pagebreak insertdatetime media table emoticons forecolor backcolor fullscreen'],
+        plugins: [
+          'advlist anchor autolink autosave code codesample colorpicker colorpicker contextmenu directionality emoticons fullscreen hr image imagetools importcss insertdatetime link lists media nonbreaking noneditable pagebreak paste preview print save searchreplace spellchecker tabfocus table template textcolor textpattern visualblocks visualchars wordcount'
+        ],
+        toolbar: [
+          'searchreplace bold italic underline strikethrough alignleft aligncenter alignright outdent indent  blockquote undo redo removeformat subscript superscript code codesample',
+          'hr bullist numlist link image charmap preview anchor pagebreak insertdatetime media table emoticons forecolor backcolor fullscreen'
+        ],
         images_upload_handler: function(blobInfo, success, failure) {
           const formData = new FormData()
           formData.append('file', blobInfo.blob())
-          createStorage(formData).then(res => {
-            success(res.data.data.url)
-          }).catch(() => {
-            failure('上传失败，请重新上传')
-          })
+          createStorage(formData)
+            .then((res) => {
+              success(res.data.data.url)
+            })
+            .catch(() => {
+              failure('上传失败，请重新上传')
+            })
         }
       }
     }
@@ -391,7 +569,7 @@ export default {
   computed: {
     headers() {
       return {
-        'X-Litemall-Admin-Token': getToken()
+        'X-Store-Admin-Token': getToken()
       }
     }
   },
@@ -401,7 +579,7 @@ export default {
 
   methods: {
     init: function() {
-      listCatAndBrand().then(response => {
+      listCatAndBrand().then((response) => {
         this.categoryList = response.data.data.categoryList
         this.brandList = response.data.data.brandList
       })
@@ -420,19 +598,21 @@ export default {
         products: this.products,
         attributes: this.attributes
       }
-      publishGoods(finalGoods).then(response => {
-        this.$notify.success({
-          title: '成功',
-          message: '创建成功'
+      publishGoods(finalGoods)
+        .then((response) => {
+          this.$notify.success({
+            title: '成功',
+            message: '创建成功'
+          })
+          this.$store.dispatch('tagsView/delView', this.$route)
+          this.$router.push({ path: '/goods/list' })
         })
-        this.$store.dispatch('tagsView/delView', this.$route)
-        this.$router.push({ path: '/goods/list' })
-      }).catch(response => {
-        MessageBox.alert('业务错误：' + response.data.errmsg, '警告', {
-          confirmButtonText: '确定',
-          type: 'error'
+        .catch((response) => {
+          MessageBox.alert('业务错误：' + response.data.errmsg, '警告', {
+            confirmButtonText: '确定',
+            type: 'error'
+          })
         })
-      })
     },
     handleClose(tag) {
       this.keywords.splice(this.keywords.indexOf(tag), 1)
@@ -440,7 +620,7 @@ export default {
     },
     showInput() {
       this.newKeywordVisible = true
-      this.$nextTick(_ => {
+      this.$nextTick((_) => {
         this.$refs.newKeywordInput.$refs.input.focus()
       })
     },
@@ -487,8 +667,12 @@ export default {
     },
     specChanged: function(label) {
       if (label === false) {
-        this.specifications = [{ specification: '规格', value: '标准', picUrl: '' }]
-        this.products = [{ id: 0, specifications: ['标准'], price: 0.00, number: 0, url: '' }]
+        this.specifications = [
+          { specification: '规格', value: '标准', picUrl: '' }
+        ]
+        this.products = [
+          { id: 0, specifications: ['标准'], price: 0.0, number: 0, url: '' }
+        ]
       } else {
         this.specifications = []
         this.products = []
@@ -571,7 +755,13 @@ export default {
           var z = specValues[x][combination[x]]
           specifications.push(this.specifications[z].value)
         }
-        products[productsIndex] = { id: productsIndex, specifications: specifications, price: 0.00, number: 0, url: '' }
+        products[productsIndex] = {
+          id: productsIndex,
+          specifications: specifications,
+          price: 0.0,
+          number: 0,
+          url: ''
+        }
         productsIndex++
 
         index++

@@ -30,7 +30,7 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
 }
 .hasTagsView {
@@ -38,7 +38,7 @@ export default {
     /* 84 = navbar + tags-view = 50 + 34 */
     min-height: calc(100vh - 84px);
   }
-  .fixed-header+.app-main {
+  .fixed-header + .app-main {
     padding-top: 84px;
   }
 }

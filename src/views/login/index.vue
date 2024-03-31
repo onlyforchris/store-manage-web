@@ -3,25 +3,45 @@
     <div class="locale-changer">
       <locale-changer />
     </div>
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
-      label-position="left">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
       <div class="title-container">
-        <h3 class="title">{{ $t('login.page.title') }}</h3>
+        <h3 class="title">{{ $t("login.page.title") }}</h3>
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input v-model="loginForm.username" name="username" type="text" tabindex="1" auto-complete="on"
-          :placeholder="$t('login.placeholder.username')" />
+        <el-input
+          v-model="loginForm.username"
+          name="username"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+          :placeholder="$t('login.placeholder.username')"
+        />
       </el-form-item>
 
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input v-model="loginForm.password" :type="passwordType" name="password" auto-complete="on" tabindex="2"
-          show-password :placeholder="$t('login.placeholder.password')" @keyup.enter.native="handleLogin" />
+        <el-input
+          v-model="loginForm.password"
+          :type="passwordType"
+          name="password"
+          auto-complete="on"
+          tabindex="2"
+          show-password
+          :placeholder="$t('login.placeholder.password')"
+          @keyup.enter.native="handleLogin"
+        />
       </el-form-item>
 
       <!-- <el-form-item prop="code">
@@ -34,10 +54,14 @@
         </div>
       </el-form-item> -->
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;"
-        @click.native.prevent="handleLogin">{{ $t('login.button.login') }}</el-button>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width: 100%; margin-bottom: 30px"
+        @click.native.prevent="handleLogin"
+      >{{ $t("login.button.login") }}</el-button>
 
-      <div style="position:relative">
+      <div style="position: relative">
         <div class="tips">
           <span> 超级管理员用户名: admin123</span>
           <span> 超级管理员用户名：admin123</span>
@@ -54,7 +78,10 @@
     </el-form>
 
     <div class="copyright">
-      Copyright © 2024 xxx.com 版权所有 <a href="https://github.com/onlyforchris/store-manage-web">浙ICP备xxx号</a>
+      Copyright © 2024 xxx.com 版权所有
+      <a
+        href="https://github.com/onlyforchris/store-manage-web"
+      >浙ICP备xxx号</a>
     </div>
   </div>
 </template>
@@ -82,7 +109,9 @@ export default {
       },
       codeImg: '',
       loginRules: {
-        username: [{ required: true, message: '管理员账户不允许为空', trigger: 'blur' }],
+        username: [
+          { required: true, message: '管理员账户不允许为空', trigger: 'blur' }
+        ],
         password: [
           { required: true, message: '管理员密码不允许为空', trigger: 'blur' },
           { validator: validatePassword, trigger: 'blur' }
@@ -94,12 +123,11 @@ export default {
   },
   watch: {
     $route: {
-      handler: function (route) {
+      handler: function(route) {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
     }
-
   },
   created() {
     this.getCode()
@@ -110,27 +138,30 @@ export default {
   },
   methods: {
     getCode() {
-      getKaptcha().then(response => {
+      getKaptcha().then((response) => {
         this.codeImg = response.data.data
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid && !this.loading) {
           this.loading = true
-          this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
-            this.loading = false
-            this.$router.push({ path: this.redirect || '/' })
-          }).catch(response => {
-            if (response.data.data) {
-              this.codeImg = response.data.data
-            }
-            this.$notify.error({
-              title: '失败',
-              message: response.data.errmsg
+          this.$store
+            .dispatch('LoginByUsername', this.loginForm)
+            .then(() => {
+              this.loading = false
+              this.$router.push({ path: this.redirect || '/' })
             })
-            this.loading = false
-          })
+            .catch((response) => {
+              if (response.data.data) {
+                this.codeImg = response.data.data
+              }
+              this.$notify.error({
+                title: '失败',
+                message: response.data.errmsg
+              })
+              this.loading = false
+            })
         } else {
           return false
         }
@@ -219,7 +250,7 @@ $light_gray: #eee;
 
     img {
       cursor: pointer;
-      vertical-align: middle
+      vertical-align: middle;
     }
   }
 

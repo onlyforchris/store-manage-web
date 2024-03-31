@@ -1,38 +1,50 @@
 <template>
   <div class="navbar">
-    <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container" />
+    <hamburger
+      :toggle-click="toggleSideBar"
+      :is-active="sidebar.opened"
+      class="hamburger-container"
+    />
 
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
-        <el-tooltip :content="$t('navbar.tooltip.full_screen')" effect="dark" placement="bottom">
+      <template v-if="device !== 'mobile'">
+        <el-tooltip
+          :content="$t('navbar.tooltip.full_screen')"
+          effect="dark"
+          placement="bottom"
+        >
           <screenfull class="right-menu-item" />
         </el-tooltip>
 
-        <el-tooltip :content="$t('navbar.tooltip.notice')" effect="dark" placement="bottom">
+        <el-tooltip
+          :content="$t('navbar.tooltip.notice')"
+          effect="dark"
+          placement="bottom"
+        >
           <notice class="right-menu-item" />
         </el-tooltip>
       </template>
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              {{ $t('navbar.menu.home') }}
+              {{ $t("navbar.menu.home") }}
             </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided>
             <router-link to="/profile/password">
-              {{ $t('navbar.menu.password') }}
+              {{ $t("navbar.menu.password") }}
             </router-link>
           </el-dropdown-item>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">{{ $t('navbar.menu.logout') }}</span>
+            <span style="display: block">{{ $t("navbar.menu.logout") }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -55,12 +67,7 @@ export default {
     Notice
   },
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'name',
-      'avatar',
-      'device'
-    ])
+    ...mapGetters(['sidebar', 'name', 'avatar', 'device'])
   },
   methods: {
     toggleSideBar() {
@@ -86,7 +93,7 @@ export default {
     float: left;
     padding: 0 10px;
   }
-  .breadcrumb-container{
+  .breadcrumb-container {
     float: left;
   }
   .errLog-container {
@@ -96,8 +103,8 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    &:focus{
-     outline: none;
+    &:focus {
+      outline: none;
     }
     .right-menu-item {
       display: inline-block;
